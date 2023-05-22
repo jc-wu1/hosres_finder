@@ -1,23 +1,39 @@
 part of 'geolocator_bloc.dart';
 
-abstract class GeolocatorState extends Equatable {
-  const GeolocatorState();
-
-  @override
-  List<Object> get props => [];
+enum GeolocatorStatus {
+  initial,
+  loading,
+  complete,
+  failure,
 }
 
-class GeolocatorInitial extends GeolocatorState {}
+class GeolocatorState extends Equatable {
+  final GeolocatorStatus status;
+  final Set<Marker> markers;
+  final Position? position;
 
-class GeolocatorLoadInProgress extends GeolocatorState {}
+  const GeolocatorState({
+    this.status = GeolocatorStatus.initial,
+    this.markers = const <Marker>{},
+    this.position,
+  });
 
-class GeolocatorLoadComplete extends GeolocatorState {
-  final Position position;
-
-  const GeolocatorLoadComplete({required this.position});
+  GeolocatorState copyWith({
+    GeolocatorStatus? status,
+    Set<Marker>? markers,
+    Position? position,
+  }) {
+    return GeolocatorState(
+      status: status ?? this.status,
+      markers: markers ?? this.markers,
+      position: position ?? this.position,
+    );
+  }
 
   @override
-  List<Object> get props => [position];
+  List<Object?> get props => [
+        status,
+        markers,
+        position,
+      ];
 }
-
-class GeolocatorLoadFailure extends GeolocatorState {}

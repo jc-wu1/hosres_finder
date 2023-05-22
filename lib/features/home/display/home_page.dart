@@ -14,8 +14,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  GoogleMapController? googleMapController;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,42 +22,46 @@ class _HomepageState extends State<Homepage> {
         child: Stack(
           children: [
             BlocBuilder<GeolocatorBloc, GeolocatorState>(
-              builder: (context, state) {
-                if (state is GeolocatorLoadInProgress) {
+              builder: (_, gbState) {
+                if (gbState.status == GeolocatorStatus.loading) {
                   return const Center(child: CircularProgressIndicator());
-                } else if (state is GeolocatorLoadComplete) {
-                  return SizedBox(
-                    child: GoogleMap(
-                      initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                          state.position.latitude,
-                          state.position.longitude,
-                        ),
-                        zoom: 15,
+                } else if (gbState.status == GeolocatorStatus.complete) {
+                  return GoogleMap(
+                    initialCameraPosition: CameraPosition(
+                      target: LatLng(
+                        gbState.position!.latitude,
+                        gbState.position!.longitude,
                       ),
-                      onTap: (LatLng pos) {
-                        print(pos);
-                      },
-                      onMapCreated: (controller) {
-                        googleMapController = controller;
-                      },
-                      markers: {
-                        Marker(
-                          markerId: const MarkerId('MyLocation'),
-                          draggable: true,
-                          position: LatLng(
-                            state.position.latitude,
-                            state.position.longitude,
-                          ),
-                          icon: BitmapDescriptor.defaultMarker,
-                          onDragEnd: (newPosition) {
-                            googleMapController?.animateCamera(
-                              CameraUpdate.newLatLng(newPosition),
-                            );
-                          },
-                        ),
-                      },
+                      zoom: 15,
                     ),
+                    onMapCreated: (controller) {
+                      context.read<GeolocatorBloc>().initGoogleMapController(
+                            controller,
+                          );
+                    },
+                    // markers: {
+                    //   Marker(
+                    //     markerId: const MarkerId('MyLocation'),
+                    //     draggable: true,
+                    //     position: LatLng(
+                    //       gbState.position!.latitude,
+                    //       gbState.position!.longitude,
+                    //     ),
+                    //     infoWindow: const InfoWindow(
+                    //       title: 'Your Location',
+                    //     ),
+                    //     icon: BitmapDescriptor.defaultMarker,
+                    //     onDragEnd: (newPosition) {
+                    //       context
+                    //           .read<GeolocatorBloc>()
+                    //           .controller
+                    //           ?.animateCamera(
+                    //             CameraUpdate.newLatLng(newPosition),
+                    //           );
+                    //     },
+                    //   ),
+                    // },
+                    markers: gbState.markers,
                   );
                 } else {
                   return const Center(child: CircularProgressIndicator());

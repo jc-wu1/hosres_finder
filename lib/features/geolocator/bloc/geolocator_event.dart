@@ -17,3 +17,12 @@ class GeolocatorUpdated extends GeolocatorEvent {
   @override
   List<Object> get props => [newPosition];
 }
+
+class PlaceNearbyRequested extends GeolocatorEvent {
+  final PlaceNearbyParams params;
+
+  const PlaceNearbyRequested(this.params);
+
+  @override
+  List<Object> get props => [params];
+}
