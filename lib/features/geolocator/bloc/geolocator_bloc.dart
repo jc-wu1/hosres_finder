@@ -23,10 +23,6 @@ class GeolocatorBloc extends Bloc<GeolocatorEvent, GeolocatorState> {
     on<GeolocatorUpdated>(_onGeolocatorUpdated);
   }
 
-  void initGoogleMapController(GoogleMapController controller) {
-    this.controller = controller;
-  }
-
   Future<void> _onGeolocatorLoaded(
     GeolocatorLoaded event,
     Emitter<GeolocatorState> emit,
@@ -44,29 +40,10 @@ class GeolocatorBloc extends Bloc<GeolocatorEvent, GeolocatorState> {
     GeolocatorUpdated event,
     Emitter<GeolocatorState> emit,
   ) {
-    Set<Marker> markers = Set.of(state.markers);
-
-    markers.add(
-      Marker(
-        markerId: const MarkerId('MyLocation'),
-        icon: BitmapDescriptor.defaultMarker,
-        position: LatLng(
-          event.newPosition.latitude,
-          event.newPosition.longitude,
-        ),
-        draggable: true,
-        onDragEnd: (value) {
-          controller?.animateCamera(
-            CameraUpdate.newLatLng(value),
-          );
-        },
-      ),
-    );
-
     emit(
       state.copyWith(
         status: GeolocatorStatus.complete,
-        markers: markers,
+        position: event.newPosition,
       ),
     );
   }
