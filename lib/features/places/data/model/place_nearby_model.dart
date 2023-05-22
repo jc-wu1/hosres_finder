@@ -1,13 +1,14 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:hosres_finder/features/places/data/model/place_model.dart';
 
-class PlaceNearbyModel {
+class PlaceNearbyModel extends Equatable {
   final List<PlaceModel>? result;
   final String? status;
   final String? errorMessage;
 
-  PlaceNearbyModel({
+  const PlaceNearbyModel({
     this.result,
     this.status,
     this.errorMessage,
@@ -42,4 +43,11 @@ class PlaceNearbyModel {
         "status": status,
         "error_message": errorMessage,
       };
+
+  @override
+  List<Object?> get props => [
+        result,
+        status,
+        errorMessage,
+      ];
 }

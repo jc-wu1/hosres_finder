@@ -11,6 +11,7 @@ class HosResApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.grey,
       ),
+      debugShowCheckedModeBanner: false,
       home: const HomePage(),
     );
   }

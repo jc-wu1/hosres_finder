@@ -1,13 +1,13 @@
-part of 'place_bloc.dart';
+part of 'place_nearby__bloc.dart';
 
-abstract class PlaceEvent extends Equatable {
-  const PlaceEvent();
+abstract class PlaceNearbyEvent extends Equatable {
+  const PlaceNearbyEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class PlaceNearbyRequested extends PlaceEvent {
+class PlaceNearbyRequested extends PlaceNearbyEvent {
   final PlaceNearbyParams params;
 
   const PlaceNearbyRequested(this.params);
