@@ -14,12 +14,15 @@ import 'package:hosres_finder/features/geolocator/domain/repository/geolocator_r
 import 'package:hosres_finder/features/places/data/repository/place_repository_impl.dart';
 import 'package:hosres_finder/features/places/domain/repository/place_repository.dart';
 import 'package:hosres_finder/features/places/domain/usecase/get_place_nearby_usecase.dart';
+import 'package:hosres_finder/features/search/data/repository/search_repository_impl.dart';
+import 'package:hosres_finder/features/search/domain/repository/search_repository.dart';
 import 'package:hosres_finder/features/search/domain/usecase/search_places_by_keyword_usecase.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/fav_places/domain/usecase/remove_fav_places_usecase.dart';
 import '../../features/places/data/datasource/place_remote_data_source.dart';
+import '../../features/search/data/datasource/search_remote_data_source.dart';
 import '../network/dio_wrapper.dart';
 import '../network/network_info.dart';
 
@@ -45,6 +48,9 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton<FavPlacesLocalDataSource>(
     () => FavPlacesLocalDataSourceImpl(sharedPreferences: sl()),
   );
+  sl.registerLazySingleton<SearchRemoteDataSource>(
+    () => SearchRemoteDataSource(sl()),
+  );
 
   /// Repository
   sl.registerLazySingleton<PlaceRepository>(
@@ -61,6 +67,9 @@ Future<void> initDependencies() async {
   );
   sl.registerLazySingleton<FavPlacesRepository>(
     () => FavPlacesRepositoryImpl(sl()),
+  );
+  sl.registerLazySingleton<SearchRepository>(
+    () => SearchRepositoryImpl(sl(), sl()),
   );
 
   /// Use cases
