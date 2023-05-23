@@ -52,6 +52,8 @@ class Candidate extends Equatable {
   final String? name;
   final OpeningHours? openingHours;
   final double? rating;
+  final double? userRatingsTotal;
+  final List<Photo>? photos;
 
   const Candidate({
     this.formattedAddress,
@@ -59,6 +61,8 @@ class Candidate extends Equatable {
     this.name,
     this.openingHours,
     this.rating,
+    this.userRatingsTotal,
+    this.photos,
   });
 
   factory Candidate.fromRawJson(String str) =>
@@ -76,6 +80,10 @@ class Candidate extends Equatable {
             ? null
             : OpeningHours.fromJson(json["opening_hours"]),
         rating: json["rating"]?.toDouble(),
+        photos: json["photos"] == null
+            ? []
+            : List<Photo>.from(json["photos"]!.map((x) => Photo.fromJson(x))),
+        userRatingsTotal: json["user_ratings_total"]?.toDouble(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -84,6 +92,10 @@ class Candidate extends Equatable {
         "name": name,
         "opening_hours": openingHours?.toJson(),
         "rating": rating,
+        "user_ratings_total": userRatingsTotal,
+        "photos": photos == null
+            ? []
+            : List<dynamic>.from(photos!.map((x) => x.toJson())),
       };
 
   @override

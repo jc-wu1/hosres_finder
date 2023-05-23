@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hosres_finder/features/search/display/search_page.dart';
 
 class SearchBox extends StatelessWidget {
   const SearchBox({
@@ -15,28 +16,37 @@ class SearchBox extends StatelessWidget {
         color: Colors.greenAccent,
       ),
       child: Center(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12),
-          height: 36,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.white,
-          ),
-          child: Center(
-            child: Row(
-              children: const [
-                Icon(
-                  Icons.search,
-                ),
-                SizedBox(
-                  width: 8,
-                ),
-                Text(
-                  'Find Places',
-                  style: TextStyle(color: Colors.grey),
-                )
-              ],
+        child: InkWell(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const SearchPage(),
+              ),
+            );
+          },
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            height: 36,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+            ),
+            child: Center(
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.search,
+                  ),
+                  SizedBox(
+                    width: 8,
+                  ),
+                  Text(
+                    'Find Places',
+                    style: TextStyle(color: Colors.grey),
+                  )
+                ],
+              ),
             ),
           ),
         ),
