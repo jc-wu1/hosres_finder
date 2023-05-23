@@ -83,6 +83,7 @@ class HomeHeader extends StatelessWidget {
           },
           icon: const Icon(
             Icons.favorite,
+            color: Colors.red,
           ),
         ),
       ],
