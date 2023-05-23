@@ -160,7 +160,7 @@ The "core" package of the app uses the following packages:
 
 This project uses the Google Map API to get the map data.
 
-Before running the app you need to [enable Google Map API](https://www.themoviedb.org/signup), then obtain an API key on the [credential page](https://www.themoviedb.org/settings/api).
+Before running the app you need to [enable Google Map API](https://console.cloud.google.com/), then obtain an API key on the [credential page](https://console.cloud.google.com/apis/credentials).
 
 Once you have this, update API key in `constant.dart` file inside `lib/core/`, and add your key:
 
