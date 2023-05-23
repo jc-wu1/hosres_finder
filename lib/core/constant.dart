@@ -1,7 +1,8 @@
 /// Radius default in meters
 const double radiusDefault = 5000;
 
-const String fields = 'formatted_address,name,rating,opening_hours,geometry';
+const String fields =
+    'formatted_address,name,rating,opening_hours/open_now,geometry,price_level,user_ratings_total,photo';
 
 /// Restricted Google Map API Key
 const String apiKey = 'AIzaSyCkelhHftYwdyGcrODDsIWfKlGjBpdQuKY';
