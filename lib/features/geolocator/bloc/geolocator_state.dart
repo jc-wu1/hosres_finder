@@ -5,6 +5,7 @@ enum GeolocatorStatus {
   loading,
   complete,
   failure,
+  denied,
 }
 
 class GeolocatorState extends Equatable {

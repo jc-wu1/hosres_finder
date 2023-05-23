@@ -5,6 +5,7 @@ import 'package:hosres_finder/features/fav_places/display/bloc/fav_places_bloc.d
 import 'package:hosres_finder/features/geocoder/bloc/geocoder_bloc.dart';
 
 import '../geolocator/bloc/geolocator_bloc.dart';
+import '../permission/permission_page.dart';
 import '../places/bloc/place_nearby_bloc.dart';
 import '../places/domain/usecase/get_place_nearby_usecase.dart';
 import 'widgets/home_widgets.dart';
@@ -93,6 +94,16 @@ class HomeView extends StatelessWidget {
                           ),
                         ),
                       );
+                } else if (state.status == GeolocatorStatus.denied) {
+                  Navigator.of(context)
+                      .push(
+                    MaterialPageRoute(
+                      builder: (context) => const PermissionPage(),
+                    ),
+                  )
+                      .then((value) {
+                    context.read<GeolocatorBloc>().add(GeolocatorLoaded());
+                  });
                 }
               },
               child: const HomeHeader(),

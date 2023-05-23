@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hosres_finder/features/geolocator/domain/repository/geolocator_repository.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 part 'geolocator_event.dart';
 part 'geolocator_state.dart';
@@ -28,11 +29,16 @@ class GeolocatorBloc extends Bloc<GeolocatorEvent, GeolocatorState> {
   ) async {
     geolocatorSubscription?.cancel();
 
-    final Position? position = await _repository.getCurrentLocation();
-
-    add(
-      GeolocatorUpdated(position!),
-    );
+    if (await Permission.location.request().isGranted) {
+      final Position? position = await _repository.getCurrentLocation();
+      add(
+        GeolocatorUpdated(position!),
+      );
+    } else {
+      emit(
+        state.copyWith(status: GeolocatorStatus.denied),
+      );
+    }
   }
 
   FutureOr<void> _onGeolocatorUpdated(
