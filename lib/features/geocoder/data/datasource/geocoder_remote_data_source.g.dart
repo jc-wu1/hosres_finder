@@ -31,7 +31,7 @@ class _GeocoderRemoteDataSource implements GeocoderRemoteDataSource {
       r'key': key,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<GeocoderModel>(Options(
       method: 'GET',
