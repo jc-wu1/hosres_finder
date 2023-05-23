@@ -23,19 +23,23 @@ class _PlaceRemoteDataSource implements PlaceRemoteDataSource {
   @override
   Future<PlaceNearbyModel> fetchPlaceNearby(
     String latlong,
+    String keyword,
     double radius,
     String type,
-    String apiKey,
-  ) async {
+    String apiKey, {
+    String lang = 'id',
+  }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'location': latlong,
+      r'keyword': keyword,
       r'radius': radius,
       r'type': type,
       r'key': apiKey,
+      r'language': lang,
     };
     final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
+    const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<Map<String, dynamic>>(_setStreamType<PlaceNearbyModel>(Options(
       method: 'GET',
@@ -50,39 +54,6 @@ class _PlaceRemoteDataSource implements PlaceRemoteDataSource {
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = PlaceNearbyModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<SearchPlacesModel> searchPlaceByKeyword(
-    String fields,
-    String keyword,
-    String type,
-    String apiKey,
-  ) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{
-      r'fields': fields,
-      r'input': keyword,
-      r'inputtype': type,
-      r'key': apiKey,
-    };
-    final _headers = <String, dynamic>{};
-    final Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<Map<String, dynamic>>(_setStreamType<SearchPlacesModel>(Options(
-      method: 'GET',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              'findplacefromtext/json',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = SearchPlacesModel.fromJson(_result.data!);
     return value;
   }
 
