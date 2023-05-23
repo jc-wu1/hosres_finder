@@ -243,7 +243,5 @@ class PlacesWidget extends StatelessWidget {
             ),
           );
     }
-
-    context.read<FavPlacesBloc>().add(FavPlacesRequested());
   }
 }
