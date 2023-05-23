@@ -32,9 +32,8 @@ class FavPlacesBloc extends Bloc<FavPlacesEvent, FavPlacesState> {
     FavPlacesSaved event,
     Emitter<FavPlacesState> emit,
   ) async {
-    emit(state.copyWith(status: Status.loading));
     saveFavPlace(event.placeToSave);
-    emit(state.copyWith(status: Status.complete));
+    add(FavPlacesRequested());
   }
 
   FutureOr<void> _onFavPlacesRequested(
@@ -78,9 +77,10 @@ class FavPlacesBloc extends Bloc<FavPlacesEvent, FavPlacesState> {
   FutureOr<void> _onFavPlacesRemoved(
     FavPlacesRemoved event,
     Emitter<FavPlacesState> emit,
-  ) {
-    emit(state.copyWith(status: Status.loading));
+  ) async {
     removeFavPlace(event.placeToRemove);
-    emit(state.copyWith(status: Status.complete));
+    add(FavPlacesRequested());
+
+    // emit(state.copyWith(status: Status.complete, favPlaces: ));
   }
 }

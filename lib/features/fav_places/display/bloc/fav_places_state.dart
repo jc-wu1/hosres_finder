@@ -29,7 +29,7 @@ part of 'fav_places_bloc.dart';
 //   FavPlacesState(this.status, this.favPlaces);
 // }
 
-class FavPlacesState extends Equatable {
+class FavPlacesState {
   const FavPlacesState({
     this.status = Status.initial,
     this.favPlaces = const <Result>[],
@@ -48,9 +48,9 @@ class FavPlacesState extends Equatable {
     );
   }
 
-  @override
-  List<Object> get props => [
-        status,
-        favPlaces,
-      ];
+  // @override
+  // List<Object> get props => [
+  //       // status,
+  //       // favPlaces,
+  //     ];
 }
