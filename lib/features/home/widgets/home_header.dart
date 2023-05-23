@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hosres_finder/features/fav_places/display/fav_places_page.dart';
 import 'package:hosres_finder/features/geocoder/bloc/geocoder_bloc.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -39,7 +40,7 @@ class HomeHeader extends StatelessWidget {
                       height: 20,
                       width: 100,
                       decoration: BoxDecoration(
-                        color: Colors.grey[400],
+                        color: Colors.grey[300],
                         borderRadius: BorderRadius.circular(25),
                       ),
                     );
@@ -73,7 +74,13 @@ class HomeHeader extends StatelessWidget {
           ),
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const FavPlacesPage(),
+              ),
+            );
+          },
           icon: const Icon(
             Icons.favorite,
           ),
