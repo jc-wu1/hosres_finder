@@ -21,4 +21,6 @@ class ServerFailure extends Failure {
 
 class ConnectionFailure extends Failure {}
 
+class LocalStorageFailure extends Failure {}
+
 class UnknownFailure extends Failure {}
