@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class PlaceModel extends Equatable {
+class PlaceModel {
   final String? businessStatus;
   final Geometry? geometry;
   final String? icon;
@@ -91,29 +89,9 @@ class PlaceModel extends Equatable {
         "user_ratings_total": userRatingsTotal,
         "vicinity": vicinity,
       };
-
-  @override
-  List<Object?> get props => [
-        businessStatus,
-        geometry,
-        icon,
-        iconBackgroundColor,
-        iconMaskBaseUri,
-        name,
-        openingHours,
-        photos,
-        placeId,
-        priceLevel,
-        rating,
-        reference,
-        scope,
-        types,
-        userRatingsTotal,
-        vicinity,
-      ];
 }
 
-class Geometry extends Equatable {
+class Geometry {
   final Location? location;
 
   const Geometry({
@@ -134,12 +112,9 @@ class Geometry extends Equatable {
   Map<String, dynamic> toJson() => {
         "location": location?.toJson(),
       };
-
-  @override
-  List<Object?> get props => [location];
 }
 
-class Location extends Equatable {
+class Location {
   final double? lat;
   final double? lng;
 
@@ -162,15 +137,9 @@ class Location extends Equatable {
         "lat": lat,
         "lng": lng,
       };
-
-  @override
-  List<Object?> get props => [
-        lat,
-        lng,
-      ];
 }
 
-class OpeningHours extends Equatable {
+class OpeningHours {
   final bool? openNow;
 
   const OpeningHours({
@@ -189,12 +158,9 @@ class OpeningHours extends Equatable {
   Map<String, dynamic> toJson() => {
         "open_now": openNow,
       };
-
-  @override
-  List<Object?> get props => [openNow];
 }
 
-class Photo extends Equatable {
+class Photo {
   final int? height;
   final String? photoReference;
   final int? width;
@@ -220,11 +186,4 @@ class Photo extends Equatable {
         "photo_reference": photoReference,
         "width": width,
       };
-
-  @override
-  List<Object?> get props => [
-        height,
-        photoReference,
-        width,
-      ];
 }

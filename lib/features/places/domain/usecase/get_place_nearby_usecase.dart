@@ -19,6 +19,7 @@ class GetPlaceNearbyUsecase
       params.lat,
       params.long,
       params.type,
+      params.keyword,
     );
   }
 }
@@ -27,8 +28,14 @@ class PlaceNearbyParams extends Equatable {
   final double lat;
   final double long;
   final String type;
+  final String keyword;
 
-  const PlaceNearbyParams(this.lat, this.long, this.type);
+  const PlaceNearbyParams(
+    this.lat,
+    this.long,
+    this.type,
+    this.keyword,
+  );
 
   @override
   List<Object?> get props => [

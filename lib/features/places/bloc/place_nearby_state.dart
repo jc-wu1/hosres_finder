@@ -1,4 +1,4 @@
-part of 'place_nearby__bloc.dart';
+part of 'place_nearby_bloc.dart';
 
 enum Status {
   initial,
@@ -8,27 +8,42 @@ enum Status {
 }
 
 class PlaceNearbyState extends Equatable {
-  final Status hospitalStatus;
-  final List<PlaceModel> hospitals;
-
   const PlaceNearbyState({
     this.hospitalStatus = Status.initial,
-    this.hospitals = const <PlaceModel>[],
+    this.restaurantStatus = Status.initial,
+    this.hospitals = const <Result>[],
+    this.restaurants = const <Result>[],
+    this.favPlaces = const <Result>[],
   });
+
+  final Status hospitalStatus;
+  final Status restaurantStatus;
+  final List<Result> hospitals;
+  final List<Result> restaurants;
+  final List<Result> favPlaces;
 
   PlaceNearbyState copyWith({
     Status? hospitalStatus,
-    List<PlaceModel>? hospitals,
+    Status? restaurantStatus,
+    List<Result>? hospitals,
+    List<Result>? restaurants,
+    List<Result>? favPlaces,
   }) {
     return PlaceNearbyState(
       hospitalStatus: hospitalStatus ?? this.hospitalStatus,
+      restaurantStatus: restaurantStatus ?? this.restaurantStatus,
       hospitals: hospitals ?? this.hospitals,
+      restaurants: restaurants ?? this.restaurants,
+      favPlaces: favPlaces ?? this.favPlaces,
     );
   }
 
   @override
-  List<Object?> get props => [
+  List<Object> get props => [
         hospitalStatus,
+        restaurantStatus,
         hospitals,
+        restaurants,
+        favPlaces,
       ];
 }

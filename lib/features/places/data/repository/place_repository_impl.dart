@@ -2,7 +2,6 @@ import 'package:hosres_finder/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:hosres_finder/core/network/network_info.dart';
 import 'package:hosres_finder/features/places/data/datasource/place_remote_data_source.dart';
-import 'package:hosres_finder/features/places/data/model/search_place_model.dart';
 
 import 'package:hosres_finder/features/places/data/model/place_nearby_model.dart';
 
@@ -19,48 +18,33 @@ class PlaceRepositoryImpl implements PlaceRepository {
   Future<Either<Failure, PlaceNearbyModel>> getPlaceNearby(
     double lat,
     double long,
+    String keyword,
     String type,
   ) async {
     if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.fetchPlaceNearby(
-        '$lat,$long',
-        radiusDefault,
-        type,
-        apiKey,
-      );
-      if (response.status == "OK") {
-        return Right(response);
-      } else {
-        return Left(
-          ServerFailure(
-            response.status!,
-            response.errorMessage!,
-          ),
+      try {
+        final response = await remoteDataSource.fetchPlaceNearby(
+          '$lat,$long',
+          keyword,
+          radiusDefault,
+          type,
+          apiKey,
         );
-      }
-    } else {
-      return Left(ConnectionFailure());
-    }
-  }
-
-  @override
-  Future<Either<Failure, SearchPlacesModel>> searchPlaceByKeyword(
-    String keyword,
-  ) async {
-    if (await networkInfo.isConnected) {
-      final response = await remoteDataSource.searchPlaceByKeyword(
-        fields,
-        keyword,
-        'textquery',
-        apiKey,
-      );
-      if (response.status == "OK") {
-        return Right(response);
-      } else {
+        if (response.status == "OK") {
+          return Right(response);
+        } else {
+          return Left(
+            ServerFailure(
+              response.status!,
+              '',
+            ),
+          );
+        }
+      } catch (e) {
         return Left(
           ServerFailure(
-            response.status!,
-            response.errorMessage!,
+            'error',
+            e.toString(),
           ),
         );
       }

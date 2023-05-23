@@ -1,4 +1,4 @@
-part of 'place_nearby__bloc.dart';
+part of 'place_nearby_bloc.dart';
 
 abstract class PlaceNearbyEvent extends Equatable {
   const PlaceNearbyEvent();
